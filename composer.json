@@ -1,0 +1,22 @@
+{
+  "name": "wmateam/curling",
+  "description": "CURL request Handler for PHP",
+  "authors": [
+    {
+      "name": "Mohammad Javad Afkari",
+      "email": "afkari.1370@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.0.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "wmateam\\curling\\": "src"
+    }
+  }
+}
