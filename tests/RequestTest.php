@@ -6,7 +6,7 @@
  * Time: 1:45 PM
  */
 
-require_once 'vendor/autoload.php';
+use wmateam\curling\Request;
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testGetRequest()
     {
-        $r = new \wmateam\curling\Request($this->url. 'get');
+        $r = new Request($this->url. 'get');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();
@@ -25,7 +25,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPostRequest()
     {
-        $r = new \wmateam\curling\Request($this->url . 'post');
+        $r = new Request($this->url . 'post');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->post($this->params);
@@ -34,7 +34,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPutRequest()
     {
-        $r = new \wmateam\curling\Request($this->url . 'put');
+        $r = new Request($this->url . 'put');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->put($this->params);
@@ -43,7 +43,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPatchRequest()
     {
-        $r = new \wmateam\curling\Request($this->url . 'patch');
+        $r = new Request($this->url . 'patch');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->patch($this->params);
@@ -52,7 +52,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteRequest()
     {
-        $r = new \wmateam\curling\Request($this->url . 'delete');
+        $r = new Request($this->url . 'delete');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->delete($this->params);
@@ -61,12 +61,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testStatusCode()
     {
-        $r = new \wmateam\curling\Request($this->url . 'status/400');
+        $r = new Request($this->url . 'status/400');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();
         $this->assertEquals(400, $data->getStatusCode());
-        $r = new \wmateam\curling\Request($this->url . 'status/404');
+        $r = new Request($this->url . 'status/404');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();

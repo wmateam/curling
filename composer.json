@@ -1,7 +1,7 @@
 {
   "name": "wmateam/curling",
   "description": "CURL request Handler for PHP",
-  "keywords": ["curl", "request", "php"],
+  "keywords": ["curl", "request", "response", "php"],
   "homepage": "https://github.com/wmateam/Curling",
   "type": "library",
   "version": "0.1.0",
@@ -9,7 +9,7 @@
   "authors": [
     {
       "name": "Mohammad Javad Afkari",
-      "email": "afkari.1370@gmail.com"
+      "email": "wmateam@gmail.com"
     }
   ],
   "license": "MIT",
