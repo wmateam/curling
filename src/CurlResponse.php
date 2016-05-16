@@ -8,7 +8,7 @@
 namespace wmateam\curling;
 
 
-class Response
+class CurlResponse
 {
     private $result, $info;
 

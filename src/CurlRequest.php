@@ -8,7 +8,7 @@
 
 namespace wmateam\curling;
 
-class Request
+class CurlRequest
 {
     private $channel = null;
     private $optArray = array();
@@ -62,7 +62,7 @@ class Request
     }
 
     /**
-     * @return Response
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function get()
@@ -74,7 +74,7 @@ class Request
     /**
      * @param array $data
      * @param int $type
-     * @return Response
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function post($data = null, $type = self::FORM)
@@ -88,7 +88,7 @@ class Request
     /**
      * @param array $data
      * @param int $type
-     * @return Response
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function put($data = null, $type = self::FORM)
@@ -101,7 +101,7 @@ class Request
     /**
      * @param array $data
      * @param int $type
-     * @return Response
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function patch($data = null, $type = self::FORM)
@@ -114,7 +114,7 @@ class Request
     /**
      * @param array $data
      * @param int $type
-     * @return Response
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function delete($data = null, $type = self::FORM)
@@ -167,7 +167,7 @@ class Request
     }
 
     /**
-     * @return Response
+     * @return CurlResponse
      * @throws CurlingException
      */
     private function result()
@@ -176,7 +176,7 @@ class Request
             if ($this->queryString != null)
                 $this->optArray[CURLOPT_URL] = $this->optArray[CURLOPT_URL] . '?' . $this->queryString;
             curl_setopt_array($this->channel, $this->optArray);
-            return new Response(curl_exec($this->channel), curl_getinfo($this->channel));
+            return new CurlResponse(curl_exec($this->channel), curl_getinfo($this->channel));
         } catch (\Exception $e) {
             throw new CurlingException($e->getMessage(), $e->getCode(), $e);
         }
