@@ -44,7 +44,7 @@ class CurlRequest
 
     /**
      * Set header params
-     * @param array $header
+     * @param string $header
      */
     public function setHeader($header)
     {
