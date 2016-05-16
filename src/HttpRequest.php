@@ -8,7 +8,7 @@
 
 namespace wmateam\curling;
 
-class CurlRequest
+class HttpRequest
 {
     private $channel = null;
     private $optArray = array();
@@ -39,7 +39,24 @@ class CurlRequest
         $this->optArray[CURLOPT_MAXREDIRS] = 10;
         $this->optArray[CURLOPT_TIMEOUT] = 30;
         $this->optArray[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
+    }
 
+
+    public function setAuthentication($username, $password)
+    {
+        $this->optArray[CURLOPT_USERPWD] = $username . ':' . $password;
+        $this->optArray[CURLOPT_UNRESTRICTED_AUTH] = true;
+    }
+
+
+    public function setProxy($proxy, $username = null, $password = null)
+    {
+        if ($proxy === '') {
+            throw new CurlingException('$proxy', CurlingException::INVALID_TYPE);
+        }
+
+        $this->optArray[CURLOPT_PROXY] = $proxy;
+        $this->optArray[CURLOPT_PROXYUSERPWD] = $username . ':' . $password;
     }
 
     /**
@@ -62,7 +79,7 @@ class CurlRequest
     }
 
     /**
-     * @return CurlResponse
+     * @return HttpResponse
      * @throws CurlingException
      */
     public function get()
@@ -74,7 +91,7 @@ class CurlRequest
     /**
      * @param array $data
      * @param int $type
-     * @return CurlResponse
+     * @return HttpResponse
      * @throws CurlingException
      */
     public function post($data = null, $type = self::FORM)
@@ -88,7 +105,7 @@ class CurlRequest
     /**
      * @param array $data
      * @param int $type
-     * @return CurlResponse
+     * @return HttpResponse
      * @throws CurlingException
      */
     public function put($data = null, $type = self::FORM)
@@ -101,7 +118,7 @@ class CurlRequest
     /**
      * @param array $data
      * @param int $type
-     * @return CurlResponse
+     * @return HttpResponse
      * @throws CurlingException
      */
     public function patch($data = null, $type = self::FORM)
@@ -114,7 +131,7 @@ class CurlRequest
     /**
      * @param array $data
      * @param int $type
-     * @return CurlResponse
+     * @return HttpResponse
      * @throws CurlingException
      */
     public function delete($data = null, $type = self::FORM)
@@ -166,7 +183,7 @@ class CurlRequest
     }
 
     /**
-     * @return CurlResponse
+     * @return HttpResponse
      * @throws CurlingException
      */
     private function result()
@@ -176,7 +193,7 @@ class CurlRequest
                 $this->optArray[CURLOPT_URL] = $this->optArray[CURLOPT_URL] . '?' . $this->queryString;
             $this->optArray[CURLOPT_HTTPHEADER] = $this->optHeader;
             curl_setopt_array($this->channel, $this->optArray);
-            return new CurlResponse(curl_exec($this->channel), curl_getinfo($this->channel));
+            return new HttpResponse(curl_exec($this->channel), curl_getinfo($this->channel));
         } catch (\Exception $e) {
             throw new CurlingException($e->getMessage(), $e->getCode(), $e);
         }
