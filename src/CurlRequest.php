@@ -161,7 +161,6 @@ class CurlRequest
 
         if ($type == self::RAW_DATA)
             array_push($this->optHeader, 'content-type: text/plain');
-        $this->optArray[CURLOPT_HTTPHEADER] = $this->optHeader;
         $this->validateFields($data, $isString);
         $this->optArray[CURLOPT_POSTFIELDS] = $data;
     }
@@ -175,6 +174,7 @@ class CurlRequest
         try {
             if ($this->queryString != null)
                 $this->optArray[CURLOPT_URL] = $this->optArray[CURLOPT_URL] . '?' . $this->queryString;
+            $this->optArray[CURLOPT_HTTPHEADER] = $this->optHeader;
             curl_setopt_array($this->channel, $this->optArray);
             return new CurlResponse(curl_exec($this->channel), curl_getinfo($this->channel));
         } catch (\Exception $e) {
