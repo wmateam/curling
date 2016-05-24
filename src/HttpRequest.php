@@ -91,53 +91,57 @@ class HttpRequest
     /**
      * @param array $data
      * @param int $type
+     * @param bool $isJSON
      * @return HttpResponse
      * @throws CurlingException
      */
-    public function post($data = null, $type = self::FORM)
+    public function post($data = null, $type = self::FORM, $isJSON = false)
     {
         $this->optArray[CURLOPT_POST] = true;
         $this->optArray[CURLOPT_CUSTOMREQUEST] = "POST";
-        $this->addParams($type, $data);
+        $this->addParams($type, $data, $isJSON);
         return $this->result();
     }
 
     /**
      * @param array $data
      * @param int $type
+     * @param bool $isJSON
      * @return HttpResponse
      * @throws CurlingException
      */
-    public function put($data = null, $type = self::FORM)
+    public function put($data = null, $type = self::FORM, $isJSON = false)
     {
         $this->optArray[CURLOPT_CUSTOMREQUEST] = "PUT";
-        $this->addParams($type, $data);
+        $this->addParams($type, $data, $isJSON);
         return $this->result();
     }
 
     /**
      * @param array $data
      * @param int $type
+     * @param bool $isJSON
      * @return HttpResponse
      * @throws CurlingException
      */
-    public function patch($data = null, $type = self::FORM)
+    public function patch($data = null, $type = self::FORM, $isJSON = false)
     {
         $this->optArray[CURLOPT_CUSTOMREQUEST] = "PATCH";
-        $this->addParams($type, $data);
+        $this->addParams($type, $data, $isJSON);
         return $this->result();
     }
 
     /**
      * @param array $data
      * @param int $type
+     * @param bool $isJSON
      * @return HttpResponse
      * @throws CurlingException
      */
-    public function delete($data = null, $type = self::FORM)
+    public function delete($data = null, $type = self::FORM, $isJSON = false)
     {
         $this->optArray[CURLOPT_CUSTOMREQUEST] = "DELETE";
-        $this->addParams($type, $data);
+        $this->addParams($type, $data, $isJSON);
         return $this->result();
     }
 
@@ -164,20 +168,25 @@ class HttpRequest
     /**
      * @param $type
      * @param $data
+     * @param bool $isJSON
      * @throws CurlingException
      */
-    private function addParams($type, $data)
+    private function addParams($type, $data, $isJSON = false)
     {
         $isString = false;
-        if ($type == self::RAW_DATA)
-            $isString = true;
 
 
         if ($type == self::X_WWW_FROM_URLENCODED)
-            array_push($this->optHeader, 'content-type: application/x-www-form-urlencoded');
+            $this->setHeader('content-type: application/x-www-form-urlencoded');
 
-        if ($type == self::RAW_DATA)
-            array_push($this->optHeader, 'content-type: text/plain');
+        if ($type == self::RAW_DATA) {
+            $isString = true;
+            if ($isJSON)
+                $this->setHeader('content-type: application/json');
+            else
+                $this->setHeader('content-type: text/plain');
+        }
+
         $this->validateFields($data, $isString);
         $this->optArray[CURLOPT_POSTFIELDS] = $data;
     }

@@ -12,11 +12,13 @@ class RequestTest extends PHPUnit_Framework_TestCase
 {
     private $url = 'https://httpbin.org/';
     private $params = array('foo' => 'bar', 'baz' => 'boom', 'cow' => 'milk');
+    private $jsonParams = '{"array":[{"cow":"milk"}],"baz":"boom","foo":"bar"}';
     private $headers = 'agent: wmateam\curling';
 
     public function testGetRequest()
     {
-        $r = new HttpRequest($this->url. 'get');
+        echo __METHOD__."\n";
+        $r = new HttpRequest($this->url . 'get');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();
@@ -25,6 +27,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPostRequest()
     {
+        echo __METHOD__."\n";
         $r = new HttpRequest($this->url . 'post');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -32,8 +35,20 @@ class RequestTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(200, $data->getStatusCode());
     }
 
+    public function testPostRawDataRequest()
+    {
+        echo __METHOD__."\n";
+        $r = new HttpRequest($this->url . 'post');
+        $r->setQueryString($this->params);
+        $r->setHeader($this->headers);
+        $data = $r->post($this->jsonParams, HttpRequest::RAW_DATA);
+        $this->assertEquals(true, json_decode($data->getBody(), true)['json'] != '');
+        $this->assertEquals(200, $data->getStatusCode());
+    }
+
     public function testPutRequest()
     {
+        echo __METHOD__."\n";
         $r = new HttpRequest($this->url . 'put');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -43,6 +58,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPatchRequest()
     {
+        echo __METHOD__."\n";
         $r = new HttpRequest($this->url . 'patch');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -52,6 +68,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteRequest()
     {
+        echo __METHOD__."\n";
         $r = new HttpRequest($this->url . 'delete');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -61,6 +78,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testStatusCode()
     {
+        echo __METHOD__."\n";
         $r = new HttpRequest($this->url . 'status/400');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
