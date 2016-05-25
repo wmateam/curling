@@ -26,7 +26,9 @@ class HttpRequest
      */
     public function __construct($url)
     {
-        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+        if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
+
+        } else {
             throw new CurlingException('$url');
         }
         $this->channel = curl_init();
