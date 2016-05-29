@@ -41,43 +41,7 @@ class HttpRequest
         $this->optArray[CURLOPT_MAXREDIRS] = 10;
         $this->optArray[CURLOPT_TIMEOUT] = 30;
         $this->optArray[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
-    }
-
-
-    public function setAuthentication($username, $password)
-    {
-        $this->optArray[CURLOPT_USERPWD] = $username . ':' . $password;
-        $this->optArray[CURLOPT_UNRESTRICTED_AUTH] = true;
-    }
-
-
-    public function setProxy($proxy, $username = null, $password = null)
-    {
-        if ($proxy === '') {
-            throw new CurlingException('$proxy', CurlingException::INVALID_TYPE);
-        }
-
-        $this->optArray[CURLOPT_PROXY] = $proxy;
-        $this->optArray[CURLOPT_PROXYUSERPWD] = $username . ':' . $password;
-    }
-
-    /**
-     * Set header params
-     * @param string $header
-     */
-    public function setHeader($header)
-    {
-        array_push($this->optHeader, $header);
-    }
-
-    /**
-     * @param array $data
-     * @throws CurlingException
-     */
-    public function setQueryString($data = null)
-    {
-        $this->validateFields($data);
-        $this->queryString = http_build_query($data);
+        $this->optArray[CURLOPT_USERAGENT] = 'wmateam-curling/0.5.0';
     }
 
     /**
@@ -145,6 +109,54 @@ class HttpRequest
         $this->optArray[CURLOPT_CUSTOMREQUEST] = "DELETE";
         $this->addParams($type, $data, $isJSON);
         return $this->result();
+    }
+
+    public function setAuthentication($username, $password)
+    {
+        $this->optArray[CURLOPT_USERPWD] = $username . ':' . $password;
+        $this->optArray[CURLOPT_UNRESTRICTED_AUTH] = true;
+    }
+
+
+    public function setProxy($proxy, $username = null, $password = null)
+    {
+        if ($proxy === '') {
+            throw new CurlingException('$proxy', CurlingException::INVALID_TYPE);
+        }
+
+        $this->optArray[CURLOPT_PROXY] = $proxy;
+        $this->optArray[CURLOPT_PROXYUSERPWD] = $username . ':' . $password;
+    }
+
+    /**
+     * Set header params
+     * @param string $header
+     */
+    public function setHeader($header)
+    {
+        array_push($this->optHeader, $header);
+    }
+
+    /**
+     * @param array $data
+     * @throws CurlingException
+     */
+    public function setQueryString($data = null)
+    {
+        $this->validateFields($data);
+        $this->queryString = http_build_query($data);
+    }
+
+    public function setUserAgent($agent)
+    {
+        if (!is_string($agent))
+            throw new CurlingException('(string)$agent', CurlingException::INVALID_TYPE);
+        $this->userAgent($agent);
+    }
+
+    private function userAgent($agent)
+    {
+        $this->optArray[CURLOPT_USERAGENT] = $agent;
     }
 
     /**
