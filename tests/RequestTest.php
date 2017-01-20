@@ -6,7 +6,7 @@
  * Time: 1:45 PM
  */
 
-use wmateam\curling\HttpRequest;
+use wmateam\curling\CurlRequest;
 
 class RequestTest extends PHPUnit_Framework_TestCase
 {
@@ -18,7 +18,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testGetRequest()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'get');
+        $r = new CurlRequest($this->url . 'get');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();
@@ -28,7 +28,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testPostRequest()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'post');
+        $r = new CurlRequest($this->url . 'post');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->post($this->params);
@@ -38,10 +38,10 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testPostRawDataRequest()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'post');
+        $r = new CurlRequest($this->url . 'post');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
-        $data = $r->post($this->jsonParams, HttpRequest::RAW_DATA);
+        $data = $r->post($this->jsonParams, CurlRequest::RAW_DATA);
         $this->assertEquals(true, json_decode($data->getBody(), true)['json'] != '');
         $this->assertEquals(200, $data->getStatusCode());
     }
@@ -49,7 +49,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testPutRequest()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'put');
+        $r = new CurlRequest($this->url . 'put');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->put($this->params);
@@ -59,7 +59,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testPatchRequest()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'patch');
+        $r = new CurlRequest($this->url . 'patch');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->patch($this->params);
@@ -69,7 +69,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testDeleteRequest()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'delete');
+        $r = new CurlRequest($this->url . 'delete');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->delete($this->params);
@@ -79,12 +79,12 @@ class RequestTest extends PHPUnit_Framework_TestCase
     public function testStatusCode()
     {
         echo __METHOD__."\n";
-        $r = new HttpRequest($this->url . 'status/400');
+        $r = new CurlRequest($this->url . 'status/400');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();
         $this->assertEquals(400, $data->getStatusCode());
-        $r = new HttpRequest($this->url . 'status/404');
+        $r = new CurlRequest($this->url . 'status/404');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
         $data = $r->get();

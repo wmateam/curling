@@ -8,7 +8,7 @@
 
 namespace wmateam\curling;
 
-class HttpRequest
+class CurlRequest
 {
     private $channel = null;
     private $optArray = array();
