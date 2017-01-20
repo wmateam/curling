@@ -45,7 +45,7 @@ class CurlRequest
     }
 
     /**
-     * @return HttpResponse
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function get()
@@ -58,7 +58,7 @@ class CurlRequest
      * @param array $data
      * @param int $type
      * @param bool $isJSON
-     * @return HttpResponse
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function post($data = null, $type = self::FORM, $isJSON = false)
@@ -73,7 +73,7 @@ class CurlRequest
      * @param array $data
      * @param int $type
      * @param bool $isJSON
-     * @return HttpResponse
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function put($data = null, $type = self::FORM, $isJSON = false)
@@ -87,7 +87,7 @@ class CurlRequest
      * @param array $data
      * @param int $type
      * @param bool $isJSON
-     * @return HttpResponse
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function patch($data = null, $type = self::FORM, $isJSON = false)
@@ -101,7 +101,7 @@ class CurlRequest
      * @param array $data
      * @param int $type
      * @param bool $isJSON
-     * @return HttpResponse
+     * @return CurlResponse
      * @throws CurlingException
      */
     public function delete($data = null, $type = self::FORM, $isJSON = false)
@@ -206,7 +206,7 @@ class CurlRequest
     }
 
     /**
-     * @return HttpResponse
+     * @return CurlResponse
      * @throws CurlingException
      */
     private function result()
@@ -216,7 +216,7 @@ class CurlRequest
                 $this->optArray[CURLOPT_URL] = $this->optArray[CURLOPT_URL] . '?' . $this->queryString;
             $this->optArray[CURLOPT_HTTPHEADER] = $this->optHeader;
             curl_setopt_array($this->channel, $this->optArray);
-            return new HttpResponse(curl_exec($this->channel), curl_getinfo($this->channel));
+            return new CurlResponse(curl_exec($this->channel), curl_getinfo($this->channel));
         } catch (\Exception $e) {
             throw new CurlingException($e->getMessage(), $e->getCode(), $e);
         }
