@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/wmateam/Curling.svg?branch=master)](https://travis-ci.org/wmateam/Curling)
+[![Build Status](https://travis-ci.org/wmateam/curling.svg?branch=master)](https://travis-ci.org/wmateam/curling)
 
 # Curling
 CURL request Handler for PHP
