@@ -2,7 +2,7 @@
   "name": "wmateam/curling",
   "description": "CURL request Handler for PHP",
   "keywords": ["curl", "request", "response", "php"],
-  "homepage": "https://github.com/wmateam/Curling",
+  "homepage": "https://github.com/wmateam/curling",
   "type": "library",
   "version": "0.7.0",
   "minimum-stability": "stable",
