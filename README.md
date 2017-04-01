@@ -16,3 +16,4 @@ Support :
 You can use proxy on your request.
 
 This library support Authentication.
+# [Wiki and Docs](https://github.com/wmateam/curling/wiki)

@@ -25,7 +25,7 @@ class CurlResponse
     }
 
     /**
-     * retrieve Headers
+     * return response header
      *
      * @return string
      */
