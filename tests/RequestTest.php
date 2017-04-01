@@ -17,7 +17,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testGetRequest()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'get');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -27,7 +27,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPostRequest()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'post');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -37,7 +37,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPostRawDataRequest()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'post');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -48,7 +48,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPutRequest()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'put');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -58,7 +58,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testPatchRequest()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'patch');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -68,7 +68,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testDeleteRequest()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'delete');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
@@ -78,7 +78,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
 
     public function testStatusCode()
     {
-        echo __METHOD__."\n";
+        echo __METHOD__ . "\n";
         $r = new CurlRequest($this->url . 'status/400');
         $r->setQueryString($this->params);
         $r->setHeader($this->headers);
