@@ -41,7 +41,7 @@ class CurlRequest
         $this->optArray[CURLOPT_MAXREDIRS] = 10;
         $this->optArray[CURLOPT_TIMEOUT] = 30;
         $this->optArray[CURLOPT_HTTP_VERSION] = CURL_HTTP_VERSION_1_1;
-        $this->optArray[CURLOPT_USERAGENT] = 'wmateam-curling/0.5.0';
+        $this->optArray[CURLOPT_USERAGENT] = 'wmateam-curling/0.7.5';
     }
 
     /**
@@ -190,8 +190,10 @@ class CurlRequest
         $isString = false;
 
 
-        if ($type == self::X_WWW_FROM_URLENCODED)
+        if ($type == self::X_WWW_FROM_URLENCODED) {
             $this->setHeader('content-type: application/x-www-form-urlencoded');
+            $data = http_build_query($data);
+        }
 
         if ($type == self::RAW_DATA) {
             $isString = true;

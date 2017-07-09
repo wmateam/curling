@@ -10,7 +10,7 @@ namespace wmateam\curling;
 
 class CurlResponse
 {
-    private $result, $info;
+    private $result, $info, $isJson;
 
     /**
      * Response constructor.
@@ -22,6 +22,7 @@ class CurlResponse
     {
         $this->result = $result;
         $this->info = $info;
+        $this->isJson = preg_match('/(application\/json)/i', $this->getContentType());
     }
 
     /**
@@ -179,4 +180,24 @@ class CurlResponse
         return $this->info['redirect_url'];
     }
 
+    /**
+     * return response isJson ?
+     * @return bool
+     */
+    public function isJson()
+    {
+        return $this->isJson > 0;
+    }
+
+    /**
+     * return json Response
+     * @param bool $asArray return as Array?
+     * @return \stdClass|array
+     */
+    public function getJson($asArray = false)
+    {
+        if ($this->isJson())
+            return json_decode($this->getBody(), $asArray);
+        return null;
+    }
 }
