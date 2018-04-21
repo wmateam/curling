@@ -193,6 +193,7 @@ class CurlRequest
         if ($type == self::X_WWW_FROM_URLENCODED) {
             $this->setHeader('content-type: application/x-www-form-urlencoded');
             $data = http_build_query($data);
+            $isString = true;
         }
 
         if ($type == self::RAW_DATA) {

@@ -4,7 +4,7 @@
   "keywords": ["curl", "request", "response", "php"],
   "homepage": "https://github.com/wmateam/curling",
   "type": "library",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "minimum-stability": "stable",
   "authors": [
     {
